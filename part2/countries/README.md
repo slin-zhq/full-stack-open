@@ -4,4 +4,4 @@
 ## Step 2. Click "show" button on "Singapore"
 ![Step 2. Click "show" button on "Singapore"](https://github.com/slin-zhq/full-stack-open/blob/main/part2/countries/submission_images/1.png?raw=true)
 ## Step 3. Country "Singapore" is shown. 
-![Step 3. Country "Singapore" is shown.](https://github.com/slin-zhq/full-stack-open/blob/main/part2/countries/submission_images/3.png?raw=true)
+![Step 3. Country "Singapore" is shown.](https://github.com/slin-zhq/full-stack-open/blob/main/part2/countries/submission_images/2.png?raw=true)
