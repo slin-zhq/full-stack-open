@@ -108,6 +108,7 @@ const App = () => {
 
   return (
     <div>
+      <p style={{color: 'gray'}}>Phonebook - Saw S. Lin's submission</p>
       <h2>Phonebook</h2>
       <Notification prop={notificationProp}/>
       <Filter filterName={filterName} handleFilterNameChange={handleFilterNameChange}/>

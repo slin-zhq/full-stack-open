@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# "Phonebook" exercises - Saw S. Lin's submission
+Finished exercises 2.6 - 2.17
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## "Phonebook" app main page
+!["Phonebook" app main page]() 
 
-## Available Scripts
+## 1. Search for people whose name contains 'da'
+![Step 1. Search for people whose name contains 'da']()
 
-In the project directory, you can run:
+## 2. Add new person
+<div style="display: flex;">
+  <img src="" alt="Type in new person's name and number" style="flex: 1; margin-right: 10px;">
+  <img src="" alt="New person successfully added" style="flex: 1; margin-left: 10px;">
+</div>
 
-### `npm start`
+## 3. Update a person's number
+<div style="display: flex;">
+  <img src="" alt="Type in an existing person's name and number" style="flex: 1; margin-right: 10px;">
+  <img src="" alt="Confirm on 'OK'" style="flex: 1; margin-left: 10px;">
+  <img src="" alt="Number successfully updated" style="flex: 1; margin-left: 10px;">
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 4. Delete a person
+<div style="display: flex;">
+  <img src="" alt="Deleting a person..." style="flex: 1; margin-right: 10px;">
+  <img src="" alt="Person successfully deleted" style="flex: 1; margin-left: 10px;">
+</div>
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 5. Open two tabs side by side, delete person on one tab, and then try to update number of the deleted person
+<div style="display: flex;">
+  <img src="" alt="Deleting a person..." style="flex: 1; margin-right: 10px;">
+  <img src="" alt="Person deleted on the right tab, but remains on the left" style="flex: 1; margin-left: 10px;">
+</div>
+<div style="display: flex;">
+  <img src="" alt="Updating the deleted person's number..." style="flex: 1; margin-right: 10px;">
+  <img src="" alt="App says the person has been deleted, gracefully handling the error" style="flex: 1; margin-left: 10px;">
+</div>
