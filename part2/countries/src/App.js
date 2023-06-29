@@ -4,15 +4,20 @@ import SearchBar from './components/SearchBar'
 import Country from './components/Country'
 
 import countryService from './services/countries'
+import weatherService from './services/weather'
 
 const App = () => {
   const [query, setQuery] = useState('')
   const [countries, setCountries] = useState(null)
   const [countrySearchKeys, setCountrySearchKeys] = useState(null)
-  const [countryShown, setCountryShown] = useState(null)
+  const [countryToShow, setCountryToShow] = useState(null)
+  const [countryWeather, setCountryWeather] = useState(null)
   
+  // console.log('Render App; countryToShow:', countryToShow)
   useEffect(() => {
-    countryService
+    // console.log('>>> useEffect() <<<')
+    if (!countries) {
+      countryService
       .getAll()
       .then(countries => {
         setCountries(countries)
@@ -20,27 +25,49 @@ const App = () => {
           country.name.common
         ))
       })
-  }, [])
+    }
+
+    if (countryToShow && countryToShow.capitalInfo.latlng) {
+      const [ lat, lon ] = countryToShow.capitalInfo.latlng
+      weatherService
+        .get(lat, lon)
+        .then(weatherData => {
+          setCountryWeather(weatherData)
+        })
+    }
+  }, [countryToShow])
 
   const handleQueryChange = (event) => {
-    setQuery(event.target.value)
-    setCountryShown(null)
+    // console.log('––– handleQueryChange() –––')
+    if (countryToShow) {
+      setQuery('')
+    } else {
+      setQuery(event.target.value)
+    }
+    setCountryToShow(null)
+    setCountryWeather(null)
   }
 
-  const toggleShowCountry = (countryToShow) => {
-    setCountryShown(countryToShow)
+  const findAndSetCountryToShow = (country) => {
+    // console.log('––– findAndSetCountryToShow() –––')
+    setCountryToShow(countries.find(c => c.name.common === country))
+    setQuery(country)
   }
 
-  const showCountry = (countryToShow) => {
-    const country = countries.find(c => c.name.common === countryToShow)
+  const showCountry = () => {
+    // console.log('––– showCountry() –––')
     return (
-      <Country country={country}/>
+      <Country country={countryToShow} weatherData={countryWeather} />
     )
   }
 
   const showSearchResults = () => {
+    // console.log('––– showSearchResults() –––')
     const countriesMatched = countrySearchKeys.filter(c => c.toLowerCase().includes(query.toLowerCase()))
-    
+
+    // console.log('query: ', query)
+    // console.log('countriesMatched: ', countriesMatched)
+     
     if (countriesMatched.length > 10) {
       return (
         <div style={{color: 'red'}}>Too many matches ({countriesMatched.length} countries), specify another filter</div>
@@ -53,13 +80,13 @@ const App = () => {
             countriesMatched.map(c => (
               <div key={c}>
                 {c}
-                <button onClick={() => toggleShowCountry(c)}>show</button>
+                <button onClick={() => findAndSetCountryToShow(c)}>show</button>
               </div>))
           }
         </div>
       )
     } else if (countriesMatched.length === 1) {
-      return showCountry(countriesMatched[0])
+      findAndSetCountryToShow(countriesMatched[0])
     } else {
       return (
         <div style={{color: 'gray'}}>No match found</div>
@@ -71,12 +98,14 @@ const App = () => {
     return null
   }
 
+  // Search results are shown when user has typed in query AND we're not showing view of a single country
+  // Otherwise, when the search has narrowed down to a single country, the country is shown.  
   return (
     <div>
       <p style={{color: 'gray'}}>Data for countries – Saw S. Lin's submission</p>
-      <SearchBar query={query} onQueryChange={handleQueryChange}/>
-      {query && !countryShown ? showSearchResults() : null}
-      {countryShown ? showCountry(countryShown) : null}
+      <SearchBar query={query} onQueryChange={handleQueryChange} isCountryFound={countryToShow}/>
+      {query && !countryToShow ? showSearchResults() : null}
+      {countryToShow ? showCountry() : null}
     </div>
   )
 }
