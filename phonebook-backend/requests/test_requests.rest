@@ -1,0 +1,15 @@
+DELETE http://localhost:3001/api/persons/193006
+
+###
+
+GET http://localhost:3001/api/persons
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Saw Lin",
+    "number": "97-32-223121"
+}
