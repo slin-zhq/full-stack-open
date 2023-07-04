@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+const cors = require('cors')
+
 const morgan = require('morgan')
 
 // creating custom morgan token...
@@ -11,11 +13,13 @@ morgan.token('post-request-body', (request, response) => {
 })
 
 app.use(express.json())
+app.use(cors())
 app.use(
     morgan(
         ':method :url :status :res[content-length] - :response-time ms :post-request-body'
     ) // morgan format adapted from the predefined format 'tiny'
 )
+app.use(express.static('build'))
 
 let persons = [
     { 
@@ -113,7 +117,7 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })

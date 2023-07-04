@@ -2,14 +2,14 @@ DELETE http://localhost:3001/api/persons/193006
 
 ###
 
-GET http://localhost:3001/api/persons
+GET https://phonebook-backend-sawslin.fly.dev/api/persons
 
 ###
 
-POST http://localhost:3001/api/persons
+POST https://phonebook-backend-sawslin.fly.dev/api/persons
 Content-Type: application/json
 
 {
-    "name": "Saw Lin",
+    "name": "Saw S. Lin",
     "number": "97-32-223121"
 }
