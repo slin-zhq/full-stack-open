@@ -56,10 +56,10 @@ const App = () => {
               })
               .catch(error => {
                 sendNotification(
-                  `Information of ${duplicatePerson.name} has already been removed from server`, 
+                  error.response.data.error, 
                   notificationType.error
                 )
-                setPersons(persons.filter(p => p.id !== duplicatePerson.id))
+                // setPersons(persons.filter(p => p.id !== duplicatePerson.id))
               })
           }
       } else {
@@ -76,6 +76,12 @@ const App = () => {
             setNewNumber('')
             setFilterName('')
             sendNotification(`Added ${returnedPerson.name}`, notificationType.success)
+          })
+          .catch(error => {
+            sendNotification(
+              error.response.data.error, 
+              notificationType.error
+            )
           })
       }
     } else if (newNumber) {
