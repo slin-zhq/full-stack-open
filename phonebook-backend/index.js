@@ -1,9 +1,8 @@
 const express = require('express')
-const app = express()
-
 const cors = require('cors')
-
 const morgan = require('morgan')
+
+const app = express()
 
 // creating custom morgan token...
 morgan.token('post-request-body', (request, response) => {
