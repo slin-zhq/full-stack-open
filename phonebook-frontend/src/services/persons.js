@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseUrl = 'https://phonebook-backend-sawslin.fly.dev/api/persons'
+const baseUrl = '/api/persons'
 
 const getAll = () => {
     return axios

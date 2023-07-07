@@ -42,27 +42,26 @@ const App = () => {
       const duplicatePerson = persons.find((person) => person.name === newName)
 
       if (duplicatePerson) {
-        alert(`${newName} already added. Try a new person.`)
-        // if (window.confirm(
-        //     `${newName} is already added to phonebook, replace the old number with a new one?`)
-        //   ) {
-        //     personService
-        //       .update(duplicatePerson.id, { ...duplicatePerson, number: newNumber })
-        //       .then(returnedPerson => {
-        //         setPersons(persons.map(p => p.id !== duplicatePerson.id ? p : returnedPerson))
-        //         setNewName('')
-        //         setNewNumber('')
-        //         setFilterName('')
-        //         sendNotification(`Updated ${duplicatePerson.name}'s number`, notificationType.success)
-        //       })
-        //       .catch(error => {
-        //         sendNotification(
-        //           `Information of ${duplicatePerson.name} has already been removed from server`, 
-        //           notificationType.error
-        //         )
-        //         setPersons(persons.filter(p => p.id !== duplicatePerson.id))
-        //       })
-        //   }
+        if (window.confirm(
+            `${newName} is already added to phonebook, replace the old number with a new one?`)
+          ) {
+            personService
+              .update(duplicatePerson.id, { ...duplicatePerson, number: newNumber })
+              .then(returnedPerson => {
+                setPersons(persons.map(p => p.id !== duplicatePerson.id ? p : returnedPerson))
+                setNewName('')
+                setNewNumber('')
+                setFilterName('')
+                sendNotification(`Updated ${duplicatePerson.name}'s number`, notificationType.success)
+              })
+              .catch(error => {
+                sendNotification(
+                  `Information of ${duplicatePerson.name} has already been removed from server`, 
+                  notificationType.error
+                )
+                setPersons(persons.filter(p => p.id !== duplicatePerson.id))
+              })
+          }
       } else {
         const newPersonObject = {
           name: newName,

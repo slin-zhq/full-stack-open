@@ -1,0 +1,19 @@
+DELETE http://localhost:3001/api/persons/64a52d594cc04e1db09aa091
+
+###
+
+GET http://localhost:3001/api/persons
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Mei Jin",
+    "number": "97-32-223121"
+}
+
+### 
+
+GET http://localhost:3001/api/persons/64a52d594cc04e1db09aa091
