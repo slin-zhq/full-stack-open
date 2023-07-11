@@ -1,0 +1,13 @@
+GET http://localhost:3003/api/blogs
+
+###
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+	"title": "How the biggest consumer apps got their first 1,000 users",
+	"author": "LENNY RACHITSKY",
+	"url": "https://www.lennysnewsletter.com/p/how-the-biggest-consumer-apps-got",
+	"likes": 407
+}
