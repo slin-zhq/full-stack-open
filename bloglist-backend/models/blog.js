@@ -9,21 +9,17 @@ const blogSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 blogSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    const {
-      title, author, url, likes,
-    } = returnedObject;
-    return {
-      // eslint-disable-next-line no-underscore-dangle
-      id: returnedObject._id.toString(),
-      title,
-      author,
-      url,
-      likes,
-    };
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
   },
 });
 

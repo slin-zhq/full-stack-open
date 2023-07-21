@@ -1,4 +1,5 @@
 const Blog = require('../models/blog');
+const User = require('../models/user');
 
 const initialBlogs = [
   {
@@ -39,6 +40,24 @@ const initialBlogs = [
   },
 ];
 
+const initialUsers = [
+  {
+    username: 'batman',
+    name: 'Bruce Wayne',
+    password: 'i-am-batman',
+  },
+  {
+    username: 'superman',
+    name: 'Clark Kent',
+    password: 'kal-el',
+  },
+  {
+    username: 'wonder_woman',
+    name: 'Diana Prince',
+    password: 'themyscira',
+  },
+];
+
 const blogsInDb = async () => {
   const blogs = await Blog.find({});
   return blogs.map((blog) => blog.toJSON());
@@ -61,7 +80,7 @@ const findBlogByObject = async (blogToFind) => {
 };
 
 const isUpdateAppiedToBlog = (blog, blogUpdate) => {
-  for (let prop in blogUpdate) {
+  for (const prop in blogUpdate) {
     if (!(prop in blog) || blog[prop] !== blogUpdate[prop]) {
       return false;
     }
@@ -69,6 +88,16 @@ const isUpdateAppiedToBlog = (blog, blogUpdate) => {
   return true;
 };
 
+const usersInDb = async () => {
+  const users = await User.find({});
+  return users.map((user) => user.toJSON());
+};
+
 module.exports = {
-  initialBlogs, blogsInDb, findBlogByObject, isUpdateAppiedToBlog,
+  initialBlogs,
+  blogsInDb,
+  findBlogByObject,
+  isUpdateAppiedToBlog,
+  initialUsers,
+  usersInDb,
 };

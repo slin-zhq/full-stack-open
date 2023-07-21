@@ -1,4 +1,5 @@
 GET http://localhost:3003/api/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhdG1hbiIsImlkIjoiNjRiOTQyZGEwODBmMzM3ZWMwMjIyNjdkIiwiaWF0IjoxNjg5OTE1MzA3fQ.Xzs1HnfNA_cCgkKKK0B97li2s8wpKsNfM3N5lP8MxNk
 
 ###
 
@@ -11,3 +12,141 @@ Content-Type: application/json
 	"url": "https://www.lennysnewsletter.com/p/how-the-biggest-consumer-apps-got",
 	"likes": 407
 }
+
+### 
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+	"author": "abc",
+	"url": "abc",
+	"likes": 407
+}
+
+###
+
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+	"username": "batman",
+	"name": "Bruce Wayne",
+	"password": "i-am-batman"
+}
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+	"username": "superman",
+	"name": "Clark Kent",
+	"password": "kal-el"
+}
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+	"username": "wonder_woman",
+	"name": "Diana Prince",
+	"password": "themyscira"
+}
+
+### 
+
+GET http://localhost:3003/api/users
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+	"username": "tu",
+	"name": "test user 2",
+	"password": "test-user"
+}
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+	"name": "test user 2",
+	"password": "te"
+}
+
+###
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+	"username": "batman",
+	"password": "i-am-batman"
+}
+
+###
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+	"username": "superman",
+	"password": "kal-el"
+}
+
+###
+POST http://localhost:3003/api/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhdG1hbiIsImlkIjoiNjRiOTQyZGEwODBmMzM3ZWMwMjIyNjdkIiwiaWF0IjoxNjg5OTE1MzA3fQ.Xzs1HnfNA_cCgkKKK0B97li2s8wpKsNfM3N5lP8MxNk
+Content-Type: application/json
+
+{
+	"title": "Batman",
+	"url": "https://batman.fandom.com/wiki/Batman",
+	"author": "Bruce Wayne",
+	"likes": 199
+}
+
+###
+POST http://localhost:3003/api/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhdG1hbiIsImlkIjoiNjRiOTQyZGEwODBmMzM3ZWMwMjIyNjdkIiwiaWF0IjoxNjg5OTE1MzA3fQ.Xzs1HnfNA_cCgkKKK0B97li2s8wpKsNfM3N5lP8MxNk
+Content-Type: application/json
+
+{
+	"title": "The Joker",
+	"url": "https://batman.fandom.com/wiki/The_Joker",
+	"author": "Bruce Wayne",
+	"likes": 201
+}
+
+###
+POST http://localhost:3003/api/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhdG1hbiIsImlkIjoiNjRiOTQyZGEwODBmMzM3ZWMwMjIyNjdkIiwiaWF0IjoxNjg5OTE1MzA3fQ.Xzs1HnfNA_cCgkKKK0B97li2s8wpKsNfM3N5lP8MxNk
+Content-Type: application/json
+
+{
+	"title": "Dick Grayson",
+	"url": "https://batman.fandom.com/wiki/Dick_Grayson",
+	"author": "Bruce Wayne",
+	"likes": 101
+}
+
+###
+POST http://localhost:3003/api/blogs
+Authorization: Bearer abc
+Content-Type: application/json
+
+{
+	"title": "Dick Grayson",
+	"url": "https://batman.fandom.com/wiki/Dick_Grayson",
+	"author": "Bruce Wayne",
+	"likes": 101
+}
+
+###
+DELETE http://localhost:3003/api/blogs/64b95fe28b9cfc975e1809ba
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhdG1hbiIsImlkIjoiNjRiOTQyZGEwODBmMzM3ZWMwMjIyNjdkIiwiaWF0IjoxNjg5OTE1MzA3fQ.Xzs1HnfNA_cCgkKKK0B97li2s8wpKsNfM3N5lP8MxNk
+
+###
+DELETE http://localhost:3003/api/blogs/64b95fe28b9cfc975e1809ba
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1cGVybWFuIiwiaWQiOiI2NGI5NDJkZjA4MGYzMzdlYzAyMjI2ODEiLCJpYXQiOjE2ODk5MTkxNjh9.-z9X7ISiHuAjkmjgV8BHrpvpr7mGK-kGv0_PwgIdDj8
