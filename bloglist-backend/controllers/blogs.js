@@ -39,7 +39,8 @@ blogsRouter.post('/', async (request, response) => {
     const savedBlog = await newBlogObject.save();
     user.blogs = user.blogs.concat(savedBlog._id);
     await user.save();
-    response.status(201).json(savedBlog);
+    const savedBlogInResponse = await Blog.findById(savedBlog._id).populate('creator', { username: 1, name: 1 });
+    response.status(201).json(savedBlogInResponse);
   }
 });
 

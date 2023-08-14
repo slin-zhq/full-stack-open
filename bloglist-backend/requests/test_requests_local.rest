@@ -150,3 +150,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhd
 ###
 DELETE http://localhost:3003/api/blogs/64b95fe28b9cfc975e1809ba
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1cGVybWFuIiwiaWQiOiI2NGI5NDJkZjA4MGYzMzdlYzAyMjI2ODEiLCJpYXQiOjE2ODk5MTkxNjh9.-z9X7ISiHuAjkmjgV8BHrpvpr7mGK-kGv0_PwgIdDj8
+
+###
+PUT http://localhost:3003/api/blogs/64d8d50bc9281796c3778bb5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhdG1hbiIsImlkIjoiNjRiOTQyZGEwODBmMzM3ZWMwMjIyNjdkIiwiaWF0IjoxNjg5OTE1MzA3fQ.Xzs1HnfNA_cCgkKKK0B97li2s8wpKsNfM3N5lP8MxNk
+Content-Type: application/json
+
+{
+	"title": "test7",
+  "author": "T4 leader",
+  "url": "https://test.com/test7",
+  "likes": 7,
+	"creator": "64b942df080f337ec0222681"
+}
