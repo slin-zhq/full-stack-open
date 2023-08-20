@@ -25,27 +25,30 @@ const BlogForm = ({ createBlog }) => {
         <div>
 					title:
           <input
+            data-testid='blog-title'
             type="text"
             value={blogTitle}
-            name="Blog title"
+            name="blog-title"
             onChange={({ target }) => setBlogTitle(target.value)}
           />
         </div>
         <div>
 					author:
           <input
+            data-testid='blog-author'
             type="text"
             value={blogAuthor}
-            name="Blog author"
+            name="blog-author"
             onChange={({ target }) => setBlogAuthor(target.value)}
           />
         </div>
         <div>
 					url:
           <input
+            data-testid='blog-url'
             type="text"
             value={blogUrl}
-            name="Blog url"
+            name="blog-url"
             onChange={({ target }) => setBlogUrl(target.value)}
           />
         </div>
