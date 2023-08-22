@@ -18,19 +18,19 @@ const Blog = ({ blog, likeBlog, deleteBlog, username }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div className='blog' style={blogStyle}>
       <div data-testid='title'>{blog.title}</div>
       <div data-testid='author'>{blog.author}</div>
-      {visible && <button onClick={toggleVisibility}>hide</button>}
-      {!visible && <button onClick={toggleVisibility}>view</button>}
+      {visible && <button id='hide-button' onClick={toggleVisibility}>hide</button>}
+      {!visible && <button id='view-button' onClick={toggleVisibility}>view</button>}
       <div style={showWhenVisible} className='togglableContent'>
         {blog.url}
         <br/>
-        {blog.likes} <button onClick={likeBlog}>like</button>
+        {blog.likes} <button id='like-button' onClick={likeBlog}>like</button>
         <br/>
         {blog.creator.name}
         <br/>
-        {username === blog.creator.username && <button onClick={deleteBlog}>remove</button>}
+        {username === blog.creator.username && <button id='remove-button' onClick={deleteBlog}>remove</button>}
       </div>
     </div>
   )
