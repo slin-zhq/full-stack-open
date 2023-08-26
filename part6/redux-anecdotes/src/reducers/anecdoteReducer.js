@@ -1,3 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit"
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -19,31 +21,53 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const reducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
-	switch(action.type) {
-		case 'VOTE':
-			const id = action.payload.id
+const anecdoteSlice = createSlice({
+	name: 'anecdotes',
+	initialState,
+	reducers: {
+		createAnecdote(state, action) {
+			const content = action.payload
+			state.push({
+				content,
+				id: getId(),
+				votes: 0
+			})
+		},
+		voteForAnecdote(state, action) {
+			const id = action.payload
 			const anecdote = state.find(anec => anec.id === id)
 			const changedAnecdote = {...anecdote, votes: anecdote.votes + 1}
 			return state.map(anec => anec.id !== id ? anec : changedAnecdote)
-		case 'NEW_ANNECDOTE':
-			return [...state, action.payload]
-		default:
-			return state
-	}
-}
-
-export const createAnecdote = (content) => {
-	return {
-		type: 'NEW_ANNECDOTE',
-		payload: {
-			content,
-			id: getId(),
-			votes: 0
 		}
 	}
-} 
+})
 
-export default reducer
+export const { createAnecdote, voteForAnecdote } = anecdoteSlice.actions
+export default anecdoteSlice.reducer
+
+// const reducer = (state = initialState, action) => {
+//   console.log('state now: ', state)
+//   console.log('action', action)
+// 	switch(action.type) {
+// 		case 'VOTE':
+// 			const id = action.payload.id
+// 			const anecdote = state.find(anec => anec.id === id)
+// 			const changedAnecdote = {...anecdote, votes: anecdote.votes + 1}
+// 			return state.map(anec => anec.id !== id ? anec : changedAnecdote)
+// 		case 'NEW_ANNECDOTE':
+// 			return [...state, action.payload]
+// 		default:
+// 			return state
+// 	}
+// }
+
+// export const createAnecdote = (content) => {
+// 	return {
+// 		type: 'NEW_ANNECDOTE',
+// 		payload: {
+// 			content,
+// 			id: getId(),
+// 			votes: 0
+// 		}
+// 	}
+// } 
