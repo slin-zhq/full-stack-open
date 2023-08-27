@@ -3,9 +3,9 @@ import { clearFirstNotification } from "../reducers/notificationReducer"
 
 const Notification = () => {
 	const dispatch = useDispatch()
-	const notifications = useSelector(state => state.notification)
+	const notification = useSelector(state => state.notification)
 
-	if (notifications.length === 0) {
+	if (notification === '') {
 		return null
 	}
 
@@ -15,24 +15,23 @@ const Notification = () => {
     borderWidth: 1
   }
 
-	const hideNotification = () => {
-		setTimeout(() => { dispatch(clearFirstNotification()) }, 5000)
-	}
+	// const hideNotification = () => {
+	// 	setTimeout(() => { dispatch(clearFirstNotification()) }, 5000)
+	// }
 
-  return (
-    <div style={style}>
-			{notifications.map((noti, index) =>
-				<div key={index}>{noti}</div> 
-			)}
-			{hideNotification()}
-    </div>
-  )
-
-	// return (
+  // return (
   //   <div style={style}>
-  //     {notification}
+	// 		{notifications.map((noti, index) =>
+	// 			<div key={index}>{noti}</div> 
+	// 		)}
   //   </div>
   // )
+
+	return (
+    <div style={style}>
+      {notification}
+    </div>
+  )
 }
 
 export default Notification
