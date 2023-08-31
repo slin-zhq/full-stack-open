@@ -8,12 +8,16 @@ import BlogForm from './components/BlogForm'
 import { setNotification } from './reducers/notificationReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { initialBlogs } from './reducers/blogReducer'
-import Blog from './components/Blog'
-import { clearLoggedInUser, setLoggedInUser } from './reducers/loggedInUserReducer'
+// import Blog from './components/Blog'
+// import { clearLoggedInUser, setLoggedInUser } from './reducers/loggedInUserReducer'
+import { setLoggedInUser } from './reducers/loggedInUserReducer'
 import { getUsers } from './reducers/usersReducer'
 import { Routes, Route, useMatch, } from 'react-router-dom'
 import Users from './components/Users'
 import User from './components/User'
+import BlogList from './components/BlogList'
+import BlogView from './components/BlogView'
+import Menu from './components/Menu'
 
 const App = () => {
   const [username, setUsername] = useState('')
@@ -62,11 +66,11 @@ const App = () => {
     }
   }
 
-  const handleLogout = (event) => {
-    event.preventDefault()
-    window.localStorage.removeItem('loggedBlogAppUser')
-    dispatch(clearLoggedInUser())
-  }
+  // const handleLogout = (event) => {
+  //   event.preventDefault()
+  //   window.localStorage.removeItem('loggedBlogAppUser')
+  //   dispatch(clearLoggedInUser())
+  // }
 
   const sendNotification = (message, type) => {
     dispatch(setNotification(message, type))
@@ -106,22 +110,28 @@ const App = () => {
     </Togglable>
   )
 
+  // const Home = () => (
+  //   <div>
+  //     <h2>create new</h2>
+  // 			  {createBlogForm()}
+  // 			  {blogs.map(blog => <Blog key={blog.id} blog={blog} username={user.username} />)}
+  //   </div>
+  // )
+
   const Home = () => (
     <div>
-      <h2>create new</h2>
-				  {createBlogForm()}
-				  {blogs.map(blog => <Blog key={blog.id} blog={blog} username={user.username} />)}
+      {createBlogForm()}
+      <BlogList />
     </div>
   )
 
-  const userById = (id) => {
-    const user = usersToDisplay.find(u => u.id === id)
-    return user
-  }
+  const userById = (id) => usersToDisplay.find(u => u.id === id)
+  const userMatch = useMatch('/users/:id')
+  const userToDisplay = userMatch ? userById(userMatch.params.id) : null
 
-  const match = useMatch('/users/:id')
-
-  const userToDisplay = match ? userById(match.params.id) : null
+  const blogById = (id) => blogs.find(b => b.id === id)
+  const blogMatch = useMatch('/blogs/:id')
+  const blogToDisplay = blogMatch ? blogById(blogMatch.params.id) : null
 
   return (
     <div>
@@ -134,23 +144,49 @@ const App = () => {
       }
       {user &&
 				<div>
-				  <h2>blogs</h2>
+				  <Menu userName={user.name}/>
+				  <h1>blogs app</h1>
 				  <Notification />
-				  <p>
-				    {user.name} logged in
-				    <button id='logout-button' onClick={handleLogout}>
-							log out
-				    </button>
-				  </p>
 				  <Routes>
 				    <Route path="/" element={<Home />} />
 				    <Route path="/users" element={<Users />} />
-				    <Route path="/users/:id" element={<User user={userToDisplay}/>} />
+				    <Route path="/users/:id" element={<User user={userToDisplay} />} />
+				    <Route path="/blogs/:id" element={<BlogView blog={blogToDisplay} />} />
 				  </Routes>
 				</div>
       }
     </div>
   )
+
+  // return (
+  //   <div>
+  //     {!user &&
+  // 			<div>
+  // 			  <h2>log in to application</h2>
+  // 			  <Notification />
+  // 			  {loginForm()}
+  // 			</div>
+  //     }
+  //     {user &&
+  // 			<div>
+  // 			  <h2>blogs</h2>
+  // 			  <Notification />
+  // 			  <p>
+  // 			    {user.name} logged in
+  // 			    <button id='logout-button' onClick={handleLogout}>
+  // 						log out
+  // 			    </button>
+  // 			  </p>
+  // 			  <Routes>
+  // 			    <Route path="/" element={<Home />} />
+  // 			    <Route path="/users" element={<Users />} />
+  // 			    <Route path="/users/:id" element={<User user={userToDisplay} />} />
+  // 			    <Route path="/blogs/:id" element={<BlogView blog={blogToDisplay} />} />
+  // 			  </Routes>
+  // 			</div>
+  //     }
+  //   </div>
+  // )
 }
 
 export default App
