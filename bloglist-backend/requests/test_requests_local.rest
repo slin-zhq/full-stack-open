@@ -150,7 +150,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3003/api/blogs/64b95fe28b9cfc975e1809ba
+DELETE http://localhost:3003/api/blogs/64ba149740284fe87dda0e2d
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhdG1hbiIsImlkIjoiNjRiOTQyZGEwODBmMzM3ZWMwMjIyNjdkIiwiaWF0IjoxNjg5OTE1MzA3fQ.Xzs1HnfNA_cCgkKKK0B97li2s8wpKsNfM3N5lP8MxNk
 
 ###
@@ -169,3 +169,15 @@ Content-Type: application/json
   "likes": 7,
 	"creator": "64b942df080f337ec0222681"
 }
+
+###
+# Adding a comment to a blog
+POST http://localhost:3003/api/blogs/64f1f1d4f552e1308cfc5271/comments
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhdG1hbiIsImlkIjoiNjRiOTQyZGEwODBmMzM3ZWMwMjIyNjdkIiwiaWF0IjoxNjg5OTE1MzA3fQ.Xzs1HnfNA_cCgkKKK0B97li2s8wpKsNfM3N5lP8MxNk
+Content-Type: application/json
+
+{
+	"comment": "I'm vengeance (7)",
+	"blogId": "64f1f1d4f552e1308cfc5271"
+}
+
