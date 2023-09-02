@@ -8,8 +8,6 @@ import BlogForm from './components/BlogForm'
 import { setNotification } from './reducers/notificationReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { initialBlogs } from './reducers/blogReducer'
-// import Blog from './components/Blog'
-// import { clearLoggedInUser, setLoggedInUser } from './reducers/loggedInUserReducer'
 import { setLoggedInUser } from './reducers/loggedInUserReducer'
 import { getUsers } from './reducers/usersReducer'
 import { Routes, Route, useMatch, } from 'react-router-dom'
@@ -66,12 +64,6 @@ const App = () => {
     }
   }
 
-  // const handleLogout = (event) => {
-  //   event.preventDefault()
-  //   window.localStorage.removeItem('loggedBlogAppUser')
-  //   dispatch(clearLoggedInUser())
-  // }
-
   const sendNotification = (message, type) => {
     dispatch(setNotification(message, type))
   }
@@ -105,18 +97,12 @@ const App = () => {
   const blogFormRef = useRef()
 
   const createBlogForm = () => (
-    <Togglable buttonLabel='new blog' ref={blogFormRef}>
+    <Togglable
+      buttonLabel='new blog'
+      ref={blogFormRef}>
       <BlogForm />
     </Togglable>
   )
-
-  // const Home = () => (
-  //   <div>
-  //     <h2>create new</h2>
-  // 			  {createBlogForm()}
-  // 			  {blogs.map(blog => <Blog key={blog.id} blog={blog} username={user.username} />)}
-  //   </div>
-  // )
 
   const Home = () => (
     <div>
@@ -134,7 +120,7 @@ const App = () => {
   const blogToDisplay = blogMatch ? blogById(blogMatch.params.id) : null
 
   return (
-    <div>
+    <div className="md:container md:mx-auto">
       {!user &&
 				<div>
 				  <h2>log in to application</h2>
@@ -145,7 +131,7 @@ const App = () => {
       {user &&
 				<div>
 				  <Menu userName={user.name}/>
-				  <h1>blogs app</h1>
+				  <h1 className='text-3xl font-bold text-blue-500 mb-4'>blogs app</h1>
 				  <Notification />
 				  <Routes>
 				    <Route path="/" element={<Home />} />
@@ -158,35 +144,6 @@ const App = () => {
     </div>
   )
 
-  // return (
-  //   <div>
-  //     {!user &&
-  // 			<div>
-  // 			  <h2>log in to application</h2>
-  // 			  <Notification />
-  // 			  {loginForm()}
-  // 			</div>
-  //     }
-  //     {user &&
-  // 			<div>
-  // 			  <h2>blogs</h2>
-  // 			  <Notification />
-  // 			  <p>
-  // 			    {user.name} logged in
-  // 			    <button id='logout-button' onClick={handleLogout}>
-  // 						log out
-  // 			    </button>
-  // 			  </p>
-  // 			  <Routes>
-  // 			    <Route path="/" element={<Home />} />
-  // 			    <Route path="/users" element={<Users />} />
-  // 			    <Route path="/users/:id" element={<User user={userToDisplay} />} />
-  // 			    <Route path="/blogs/:id" element={<BlogView blog={blogToDisplay} />} />
-  // 			  </Routes>
-  // 			</div>
-  //     }
-  //   </div>
-  // )
 }
 
 export default App
