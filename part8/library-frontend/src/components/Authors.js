@@ -3,9 +3,10 @@ import { useMutation, useQuery } from "@apollo/client"
 import { ALL_AUTHORS, EDIT_AUTHOR } from "../queries"
 import { useEffect, useState } from "react"
 
-const UpdateAuthor = ({ setError }) => {
-	const [name, setName] = useState('')
+const UpdateAuthor = ({ authors, setError }) => {
+	// const [name, setName] = useState('')
 	const [born, setBorn] = useState('')
+	const [selectedAuthor, setSelectedAuthor] = useState('');
 
 	const [ changeAuthor, result ] = useMutation(EDIT_AUTHOR, {
 		refetchQueries: [ { query: ALL_AUTHORS } ],
@@ -24,9 +25,10 @@ const UpdateAuthor = ({ setError }) => {
 	const submit = async (event) => {
     event.preventDefault()
 
-    changeAuthor({ variables: { name, setBornTo: Number(born) } })
+		const author = authors.find(a => a.id === selectedAuthor)
+    changeAuthor({ variables: { name: author.name, setBornTo: Number(born) } })
 
-    setName('')
+    setSelectedAuthor('')
     setBorn('')
   }
 
@@ -35,12 +37,17 @@ const UpdateAuthor = ({ setError }) => {
 			<h3>Set birthyear</h3>
 
 			<form onSubmit={submit}>
-			<div>
-          name <input
-            value={name}
-            onChange={({ target }) => setName(target.value)}
-          />
-        </div>
+				<label>
+					Select author:
+					<select
+						value={selectedAuthor}
+						onChange={e => setSelectedAuthor(e.target.value)}
+					>
+						{authors.map(author => (
+							<option key={author.id} value={author.id}>{author.name}</option>
+						))}
+					</select>
+				</label>
         <div>
           born <input
             value={born}
@@ -51,6 +58,28 @@ const UpdateAuthor = ({ setError }) => {
 			</form>
 		</div>
 	)
+
+	// return (
+	// 	<div>
+	// 		<h3>Set birthyear</h3>
+
+	// 		<form onSubmit={submit}>
+	// 		<div>
+  //         name <input
+  //           value={name}
+  //           onChange={({ target }) => setName(target.value)}
+  //         />
+  //       </div>
+  //       <div>
+  //         born <input
+  //           value={born}
+  //           onChange={({ target }) => setBorn(target.value)}
+  //         />
+  //       </div>
+  //       <button type='submit'>update author</button>
+	// 		</form>
+	// 	</div>
+	// )
 }
 
 
@@ -84,7 +113,7 @@ const Authors = ({ show, setError }) => {
 						))}
 					</tbody>
 				</table>
-				<UpdateAuthor setError={setError}/>
+				<UpdateAuthor authors={authors} setError={setError} />
 			</div>
 		)
 	}
