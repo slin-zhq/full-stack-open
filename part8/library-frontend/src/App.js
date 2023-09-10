@@ -4,7 +4,8 @@ import Books from './components/Books'
 import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
 import Recommendations from './components/Recommendations'
-import { useApolloClient } from '@apollo/client'
+import { useApolloClient, useSubscription } from '@apollo/client'
+import { ALL_BOOKS, BOOK_ADDED } from './queries'
 
 const Notify = ({errorMessage}) => {
   if ( !errorMessage ) {
@@ -15,6 +16,31 @@ const Notify = ({errorMessage}) => {
       {errorMessage}
     </div>
   )
+}
+
+export const updateCache = (cache, query, addedBook) => {
+  // const uniqByName = (a) => {
+  //   let seen = new Set()
+  //   return a.filter((item) => {
+  //     let k = item.title
+  //     return seen.has(k) ? false : seen.add(k)
+  //   })
+  // }
+
+  cache.updateQuery(query, ({ allBooks }) => {
+		const foundBook = allBooks.find(book => book.title === addedBook.title)
+    return {
+      allBooks: foundBook ? allBooks : allBooks.concat(addedBook),
+    }
+  })
+
+	// cache.updateQuery({ query: ALL_AUTHORS }, ({ allAuthors }) => {
+	// 	const foundAuthor = allAuthors.find(author => author.name === addedBook.author.name)
+	// 	console.log('foundAuthor:', foundAuthor)
+	// 	return {
+	// 		allAuthors: foundAuthor ? allAuthors : allAuthors.concat(addedBook.author)
+	// 	}
+	// })
 }
 
 const App = () => {
@@ -29,6 +55,15 @@ const App = () => {
       setErrorMessage(null)
     }, 10000)
   }
+
+	useSubscription(BOOK_ADDED, {
+		onData: ({ data }) => {
+			const addedBook = data.data.bookAdded
+			const { title, author } = addedBook
+			window.alert(`New book added: "${title}" by "${author.name}"`)
+			updateCache(client.cache, { query: ALL_BOOKS }, addedBook)
+		}
+	})
 
 	if (!token) {
     return (
