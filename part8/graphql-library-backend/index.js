@@ -141,7 +141,7 @@ const resolvers = {
 					}
 				})
 			}
-			
+
 			// const updatedAuthor = 
 			// 	await Author.findOneAndUpdate(
 			// 		{ name: args.name },
@@ -171,7 +171,7 @@ const resolvers = {
 			return author.save()
 		},
 		createUser: async (root, args) => {
-			const user = new User({ username: args.username })
+			const user = new User({ ...args })
 
       return user.save()
         .catch(error => {
