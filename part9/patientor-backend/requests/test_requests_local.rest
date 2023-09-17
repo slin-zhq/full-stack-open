@@ -1,0 +1,23 @@
+POST http://localhost:3001/api/patients
+Content-Type: application/json
+
+{
+	"name": "Test",
+	"dateOfBirth": "1990-09-11",
+	"ssn": "323179-93G",
+	"gender": "female",
+	"occupation": "Journalist"
+}
+
+###
+
+POST http://localhost:3001/api/patients
+Content-Type: application/json
+
+{
+	"name": "Test 2",
+	"dateOfBirth": "random",
+	"ssn": "323179-93G",
+	"gender": "male",
+	"occupation": "Journalist"
+}
