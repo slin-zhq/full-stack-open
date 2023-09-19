@@ -10,7 +10,6 @@ Content-Type: application/json
 }
 
 ###
-
 POST http://localhost:3001/api/patients
 Content-Type: application/json
 
@@ -21,3 +20,6 @@ Content-Type: application/json
 	"gender": "male",
 	"occupation": "Journalist"
 }
+
+###
+GET http://localhost:3001/api/patients/d2773598-f723-11e9-8f0b-362b9e155667 
