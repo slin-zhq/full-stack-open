@@ -56,7 +56,7 @@ router.put('/:id', (req, res) => {
 		// check the rest by toNewPatient
 		try {
 			const verifiedPatient = toNewPatient(req.body);
-			patientService.updatePatient({ id: patient.id, ...verifiedPatient });
+			patientService.updatePatient({ id: patient.id, ...verifiedPatient, entries: [] });
 			res.send(patient);
 		} catch (error: unknown) {
 			let errorMessage = 'Something went wrong.';
