@@ -1,6 +1,6 @@
-import { TextField, Grid, Button, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
+import { TextField, Grid, Button, InputLabel, Select, MenuItem, SelectChangeEvent, Input } from "@mui/material";
 import { useState, SyntheticEvent } from "react";
-import { NewEntry, Patient } from "../../types";
+import { Diagnosis, NewEntry, Patient } from "../../types";
 import patientService from '../../services/patients';
 import axios from 'axios';
 import HealthCheckEntryForm from "./HealthCheckEntryForm";
@@ -19,17 +19,19 @@ interface Props {
 	setPatients: React.Dispatch<React.SetStateAction<Patient[]>>;
 	patientID: string;
 	setError: React.Dispatch<React.SetStateAction<string | undefined>>;
+	diagnoses: Diagnosis[];
 }
 
-const AddEntryForm = ({ patients, setPatients, patientID, setError }: Props) => {
-	// doing the HealthCheck entry first...
+const AddEntryForm = ({ patients, setPatients, patientID, setError, diagnoses }: Props) => {
 	const [description, setDescription] = useState('');
 	const [date, setDate] = useState('');
 	const [specialist, setSpecialist] = useState('');
 	const [healthCheckRating, setHealthCheckRating] = useState('');
-	const [diagnosisCodes, setDiagnosisCodes] = useState('');
+	const [diagnosisCodes, setDiagnosisCodes] = useState<string[]>([]);
 	const [employerName, setEmployerName] = useState('');
-	const [sickLeave, setSickLeave] = useState(''); // to be split on keyword "to"
+	// const [sickLeave, setSickLeave] = useState(''); // to be split on keyword "to"
+	const [sickLeaveStart, setSickLeaveStart] = useState('');
+	const [sickLeaveEnd, setSickLeaveEnd] = useState('');
 	const [dischargeDate, setDischargeDate] = useState('');
 	const [dischargeCriteria, setDischargeCriteria] = useState('');
 
@@ -56,7 +58,7 @@ const AddEntryForm = ({ patients, setPatients, patientID, setError }: Props) => 
 				date,
 				specialist,
 				healthCheckRating: Number(healthCheckRating),
-				diagnosisCodes: diagnosisCodes.split(','),
+				diagnosisCodes,
 				type: entryTypes.Hc
 			};
 			if (entryType === entryTypes.OHc) {
@@ -65,18 +67,19 @@ const AddEntryForm = ({ patients, setPatients, patientID, setError }: Props) => 
 					date,
 					specialist,
 					employerName,
-					diagnosisCodes: diagnosisCodes.split(','),
+					diagnosisCodes,
 					type: entryTypes.OHc
 				};
-				if (sickLeave) {
-					const [ startDate, endDate ] = sickLeave.split(' - ');
-					newEntry.sickLeave = { startDate, endDate };
+				if (sickLeaveStart && sickLeaveEnd) {
+					// const [ startDate, endDate ] = sickLeave.split(' - ');
+					newEntry.sickLeave = { startDate: sickLeaveStart, endDate: sickLeaveEnd };
 				}
 			} else if (entryType === entryTypes.Hos) {
 				newEntry = {
 					description,
 					date,
 					specialist,
+					diagnosisCodes,
 					discharge: { date: dischargeDate, criteria: dischargeCriteria },
 					type: entryTypes.Hos
 				};
@@ -123,9 +126,11 @@ const AddEntryForm = ({ patients, setPatients, patientID, setError }: Props) => 
 		setDate('');
 		setSpecialist('');
 		setHealthCheckRating('');
-		setDiagnosisCodes('');
+		setDiagnosisCodes([]);
 		setEmployerName('');
-		setSickLeave('');
+		// setSickLeave('');
+		setSickLeaveStart('');
+		setSickLeaveEnd('');
 		setDischargeDate('');
 		setDischargeCriteria('');
 	};
@@ -137,11 +142,18 @@ const AddEntryForm = ({ patients, setPatients, patientID, setError }: Props) => 
 		}
 	};
 
+	const selectDiagnoses = (event: SelectChangeEvent<typeof diagnosisCodes>) => {
+		const {
+      target: { value },
+    } = event;
+		setDiagnosisCodes(typeof value === 'string' ? value.split(',') : value,);
+	};
+
 	return (
 		<div style={containerStyle}>
 			<InputLabel style={{ marginTop: 20 }}>Entry type</InputLabel>
 			<Select
-				label="Gender"
+				label="Entry Type"
 				fullWidth
 				value={entryType}
 				onChange={onEntryTypeChange}
@@ -165,10 +177,9 @@ const AddEntryForm = ({ patients, setPatients, patientID, setError }: Props) => 
 					value={description}
 					onChange={({ target }) => setDescription(target.value)}
 				/>
-				<TextField
-					label="Date"
-					placeholder="YYYY-MM-DD"
-					fullWidth
+				<InputLabel style={{ marginTop: 20 }}>Date</InputLabel>
+				<Input
+					type="date"
 					value={date}
 					onChange={({ target }) => setDate(target.value)}
 				/>
@@ -178,12 +189,29 @@ const AddEntryForm = ({ patients, setPatients, patientID, setError }: Props) => 
 					value={specialist}
 					onChange={({ target }) => setSpecialist(target.value)}
 				/>
-				<TextField
+				<InputLabel style={{ marginTop: 20 }}>Diagnosis codes (Optional)</InputLabel>
+				{/* <TextField
 					label="Diagnosis codes (Optional)"
 					fullWidth
 					value={diagnosisCodes}
 					onChange={({ target }) => setDiagnosisCodes(target.value)}
-				/>
+				/> */}
+				<Select
+					label="Diagnoses"
+					fullWidth
+					multiple
+					value={diagnosisCodes}
+					onChange={selectDiagnoses}
+				>
+				{diagnoses.map(d => 
+					<MenuItem
+						key={d.code}
+						value={d.code}
+					>
+						{d.name}
+					</MenuItem>
+				)}
+				</Select>
 				{/* <TextField
 					label="Healthcheck rating"
 					fullWidth
@@ -208,8 +236,10 @@ const AddEntryForm = ({ patients, setPatients, patientID, setError }: Props) => 
 					<OccupationalHealthcareEntryForm
 						employerName={employerName}
 						setEmployerName={setEmployerName}
-						sickLeave={sickLeave}
-						setSickLeave={setSickLeave}
+						sickLeaveStart={sickLeaveStart}
+						setSickLeaveStart={setSickLeaveStart}
+						sickLeaveEnd={sickLeaveEnd}
+						setSickLeaveEnd={setSickLeaveEnd}
 					/>
 				}
 				<Grid>

@@ -157,6 +157,7 @@ const PatientDetailsPage = ({ patient, diagnoses, patients, setPatients }: Props
 				setPatients={setPatients}
 				patientID={id}
 				setError={setError}
+				diagnoses={diagnoses}
 			/>
 			<h3>entries</h3>
 			{entries.map((entry) => {
