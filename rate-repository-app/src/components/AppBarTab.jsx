@@ -1,11 +1,11 @@
-import { Pressable } from "react-native";
 import Text from "./Text";
+import { Link } from "react-router-native";
 
-const AppBarTab = ({ tabName }) => {
+const AppBarTab = ({ tabName, urlPath }) => {
 	return (
-		<Pressable style={{ padding: 16 }}>
+		<Link to={urlPath} style={{ padding: 16 }}>
 			<Text fontWeight='bold' color='appBarTab'>{tabName}</Text>
-		</Pressable>
+		</Link>
 	);
 };
 
