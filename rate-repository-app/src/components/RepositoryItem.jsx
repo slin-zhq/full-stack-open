@@ -43,13 +43,13 @@ const styles = StyleSheet.create({
 	}, 
 });
 
-const formatCount = (count) => {
+export const formatCount = (count) => {
 	return count >= 1000 ? `${(count/1000).toFixed(1)}k` : count.toString();
 }
 
 const RepositoryItem = ({ repo }) => {
 	return (
-		<View style={styles.container}>
+		<View testID="repositoryItem" style={styles.container}>
 			<View style={styles.subContainerA}>
 				<Image
 					style={styles.avatarImage}
@@ -79,19 +79,19 @@ const RepositoryItem = ({ repo }) => {
 				</View>
 			</View>
 			<View style={styles.subContainerB}>
-				<View style={styles.subContainerBB}>
+				<View testID="repositoryItem/stars" style={styles.subContainerBB}>
 					<Text fontWeight='bold' style={{ marginBottom: 4 }}>{formatCount(repo.stargazersCount)}</Text>
 					<Text color='secondary'>Stars</Text>
 				</View>
-				<View style={styles.subContainerBB}>
+				<View testID="repositoryItem/forks" style={styles.subContainerBB}>
 					<Text fontWeight='bold' style={{ marginBottom: 4 }}>{formatCount(repo.forksCount)}</Text>
 					<Text color='secondary'>Forks</Text>
 				</View>
-				<View style={styles.subContainerBB}>
+				<View testID="repositoryItem/reviews" style={styles.subContainerBB}>
 					<Text fontWeight='bold' style={{ marginBottom: 4 }}>{formatCount(repo.reviewCount)}</Text>
 					<Text color='secondary'>Reviews</Text>
 				</View>
-				<View style={styles.subContainerBB}>
+				<View testID="repositoryItem/rating" style={styles.subContainerBB}>
 					<Text fontWeight='bold' style={{ marginBottom: 4 }}>{repo.ratingAverage}</Text>
 					<Text color='secondary'>Rating</Text>
 				</View>
