@@ -23,15 +23,7 @@ const styles = StyleSheet.create({
 		padding: 12,
 		borderRadius: 4,
 	},
-	primaryButton: {
-		backgroundColor: theme.colors.primary,
-		padding: 12,
-		display:'flex',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		borderRadius: 4,
-		marginTop: 16,
-	}
+	primaryButton: theme.styles.primaryButton,
 });
 
 export const validationSchema = yup.object().shape({

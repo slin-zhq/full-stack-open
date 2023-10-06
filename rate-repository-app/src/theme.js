@@ -22,6 +22,17 @@ const theme = {
     normal: '400',
     bold: '700',
   },
+	styles: {
+		primaryButton: {
+			backgroundColor: '#0366d6',
+			padding: 12,
+			display:'flex',
+			flexDirection: 'row',
+			justifyContent: 'center',
+			borderRadius: 4,
+			marginTop: 16,
+		}
+	}
 };
 
 export default theme;
