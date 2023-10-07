@@ -1,8 +1,11 @@
 import { gql } from '@apollo/client';
 
 export const GET_REPOSITORIES = gql`
-	query {
-		repositories {
+	query repositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection) {
+		repositories(
+			orderBy: $orderBy,
+			orderDirection: $orderDirection
+		) {
 			edges {
 				node {
 					id,
@@ -63,6 +66,25 @@ export const AUTHENTICATE_USER = gql`
 export const ME = gql`
 	query {
 		me {
+			id
+			username
+		}
+	}
+`;
+
+export const CREATE_REVIEW = gql`
+	mutation createReview($review: CreateReviewInput) {
+		createReview(
+			review: $review
+		) {
+			repositoryId
+		}
+	}
+`;
+
+export const CREATE_USER = gql`
+	mutation createUser($user: CreateUserInput) {
+		createUser(user: $user) {
 			id
 			username
 		}

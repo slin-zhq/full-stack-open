@@ -31,7 +31,20 @@ const theme = {
 			justifyContent: 'center',
 			borderRadius: 4,
 			marginTop: 16,
-		}
+		},
+		formContainer: {
+			justifyContent: 'space-between',
+			backgroundColor: 'white',
+			paddingBottom: 16,
+			paddingHorizontal: 16,
+		},
+		textInput: {
+			borderWidth: 1,
+			borderColor: '#9E9E9E',
+			marginTop: 16,
+			padding: 12,
+			borderRadius: 4,
+		},
 	}
 };
 
