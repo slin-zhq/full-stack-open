@@ -9,6 +9,7 @@ import SignIn from './SignIn';
 import SingleRepository from './SingleRepository';
 import CreateReview from './CreateReview';
 import SignUp from './SignUp';
+import MyReviews from './MyReviews';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,6 +28,7 @@ const appTheme = {
 		primary: theme.colors.primary,
 		onSurface: theme.colors.textSecondary,
 		outline: theme.colors.textInputBorder,
+		onSurfaceVariant: theme.colors.textPrimary,
 	}
 }
 
@@ -40,6 +42,7 @@ const Main = () => {
 					<Route path="/" element={<RepositoryList />} />
 					<Route path='/:id' element={<SingleRepository />} />
 					<Route path='/create-review' element={<CreateReview />} />
+					<Route path='/my-reviews' element={<MyReviews />} />
 					<Route path="/sign-in" element={<SignIn />} />
 					<Route path="/sign-up" element={<SignUp />} />
 					<Route path="*" element={<Navigate to="/" replace />} />

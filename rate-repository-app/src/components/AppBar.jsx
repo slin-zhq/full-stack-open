@@ -2,10 +2,10 @@ import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
 import AppBarTab from './AppBarTab';
-import { useApolloClient, useQuery } from '@apollo/client';
-import { ME } from './graphql/queries';
+import { useApolloClient } from '@apollo/client';
 import useAuthStorage from "../hooks/useAuthStorage";
 import Text from './Text';
+import useCurrentUser from '../hooks/useCurrentUser';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,8 +17,9 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-	const { data } = useQuery(ME);
-	const signedInUser = data ? data.me : null;
+	const { currentUser } = useCurrentUser();
+	console.log('currentUser:', currentUser)
+	// const signedInUser = data ? data.getCurrentUser : null;
 	const authStorage = useAuthStorage();
 	const apolloClient = useApolloClient();
 
@@ -40,10 +41,11 @@ const AppBar = () => {
 		<View style={styles.container}>
 			<ScrollView horizontal>
 				<AppBarTab urlPath="/" tabName="Repositories"/>
-				{signedInUser && <AppBarTab urlPath="/create-review" tabName="Create a review"/>}
-				{!signedInUser && <AppBarTab urlPath="/sign-in" tabName="Sign in"/>}
-				{!signedInUser && <AppBarTab urlPath="/sign-up" tabName="Sign up" />}
-				{signedInUser && <SignOutButton signOut={signOut}/>}
+				{currentUser && <AppBarTab urlPath="/create-review" tabName="Create a review"/>}
+				{currentUser && <AppBarTab urlPath="/my-reviews" tabName="My reviews"/>}
+				{!currentUser && <AppBarTab urlPath="/sign-in" tabName="Sign in"/>}
+				{!currentUser && <AppBarTab urlPath="/sign-up" tabName="Sign up" />}
+				{currentUser && <SignOutButton signOut={signOut}/>}
 			</ScrollView>
 		</View>
 	);

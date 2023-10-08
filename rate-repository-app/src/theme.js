@@ -26,7 +26,7 @@ const theme = {
 		primaryButton: {
 			backgroundColor: '#0366d6',
 			padding: 12,
-			display:'flex',
+			// display:'flex',
 			flexDirection: 'row',
 			justifyContent: 'center',
 			borderRadius: 4,
