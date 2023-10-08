@@ -7,7 +7,7 @@ const useRepositories = ({ orderBy, orderDirection, searchKeyword }) => {
   // const [repositories, setRepositories] = useState();
   // const [loading, setLoading] = useState(false);
 
-	const { data, error, loading, refetch } = useQuery(GET_REPOSITORIES, {
+	const { data, error, loading, fetchMore, refetch } = useQuery(GET_REPOSITORIES, {
 		// fetchPolicy: 'cache-and-network',
 		variables: {
 			orderBy,
@@ -15,6 +15,23 @@ const useRepositories = ({ orderBy, orderDirection, searchKeyword }) => {
 			searchKeyword
 		}
 	});
+
+	const handleFetchMore = () => {
+		const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+
+		if (!canFetchMore) {
+			return;
+		}
+
+		fetchMore({
+			variables: {
+				after: data.repositories.pageInfo.endCursor,
+				orderBy,
+				orderDirection,
+				searchKeyword
+			},
+		});
+	};
 
   // const fetchRepositories = async () => {
   //   setLoading(true);
@@ -33,7 +50,12 @@ const useRepositories = ({ orderBy, orderDirection, searchKeyword }) => {
 
   // return { repositories, loading, refetch: fetchRepositories };
 
-	return { repositories: data ? data.repositories : null, loading, refetch };
+	return { 
+		repositories: data ? data.repositories : null, 
+		fetchMore: handleFetchMore, 
+		loading, 
+		refetch 
+	};
 };
 
 export default useRepositories;

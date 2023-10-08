@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
 	const { currentUser } = useCurrentUser();
-	console.log('currentUser:', currentUser)
 	// const signedInUser = data ? data.getCurrentUser : null;
 	const authStorage = useAuthStorage();
 	const apolloClient = useApolloClient();

@@ -3,11 +3,14 @@ import { gql } from '@apollo/client';
 export const GET_REPOSITORIES = gql`
 	query repositories($orderBy: AllRepositoriesOrderBy, 
 		$orderDirection: OrderDirection,
-		$searchKeyword: String) {
+		$searchKeyword: String,
+		$after: String, $first: Int) {
 		repositories(
 			orderBy: $orderBy,
 			orderDirection: $orderDirection
 			searchKeyword: $searchKeyword
+			after: $after,
+			first: $first
 		) {
 			edges {
 				node {
@@ -22,12 +25,17 @@ export const GET_REPOSITORIES = gql`
 					ratingAverage
 				}
 			}
+			pageInfo {
+				startCursor
+				endCursor
+				hasNextPage
+			}
 		}
 	}
 `;
 
 export const GET_A_REPOSITORY = gql`
-	query repostiory($repositoryId: ID!) {
+	query repostiory($repositoryId: ID!, $first: Int, $after: String) {
 		repository(id: $repositoryId) {
 			ownerAvatarUrl,
 			fullName,
@@ -38,7 +46,7 @@ export const GET_A_REPOSITORY = gql`
 			reviewCount,
 			ratingAverage,
 			url
-			reviews {
+			reviews(first: $first, after: $after) {
 				edges {
 					node {
 						id
@@ -50,6 +58,11 @@ export const GET_A_REPOSITORY = gql`
 							username
 						}
 					}
+				}
+				pageInfo {
+					startCursor
+					endCursor
+					hasNextPage
 				}
 			}
 		}

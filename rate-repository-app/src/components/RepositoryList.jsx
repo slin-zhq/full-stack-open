@@ -78,7 +78,6 @@ const OrderPicker = ({ selectedPrinciple, setSelectedPrinciple }) => {
         ]}
       />
     </SafeAreaView>
-
 	)
 }
 
@@ -122,7 +121,7 @@ export class RepositoryListContainer extends React.Component {
 	};
 
 	render() {
-		const { repositories, navigate } = this.props;
+		const { repositories, navigate, onEndReach } = this.props;
 
 		return (
 			<FlatList
@@ -138,6 +137,8 @@ export class RepositoryListContainer extends React.Component {
 				</Pressable>
 			)}
 			ListHeaderComponent={this.renderHeader}
+			onEndReached={onEndReach}
+			onEndReachedThreshold={0.5}
 			/>
 		);
 	};
@@ -207,10 +208,11 @@ const RepositoryList = () => {
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
 
-	const { repositories } 
+	const { repositories, fetchMore } 
 		= useRepositories({ 
 			...getQueryVariables(selectedPrinciple), 
-			searchKeyword: debouncedSearchKeyword 
+			searchKeyword: debouncedSearchKeyword,
+			first: 8, 
 		});
 
 	const repositoryNodes = repositories
@@ -219,6 +221,10 @@ const RepositoryList = () => {
 
 	const navigate = useNavigate();
 
+	const onEndReach = () => {
+		fetchMore();
+	};
+
 	return <RepositoryListContainer 
 		repositories={repositoryNodes}
 		navigate={navigate} 
@@ -226,6 +232,7 @@ const RepositoryList = () => {
 		setSelectedPrinciple={setSelectedPrinciple}
 		searchKeyword={searchKeyword}
 		setSearchKeyword={setSearchKeyword}
+		onEndReach={onEndReach}
 		/>;
 };
 

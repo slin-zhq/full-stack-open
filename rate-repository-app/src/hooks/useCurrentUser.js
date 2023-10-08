@@ -9,8 +9,6 @@ const useCurrentUser = (includeReviews = false) => {
 		}
 	});
 
-	console.log('data:', data);
-
 	return { currentUser: data ? data.me : null, loading, refetch};
 }
 

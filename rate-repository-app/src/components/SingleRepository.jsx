@@ -80,7 +80,11 @@ const ReviewItem = ({ review }) => {
 
 const SingleRepository = () => {
 	const { id } = useParams();
-	const { repo } = useRepository(id);
+	const { repo, fetchMore } = useRepository({ repositoryId: id , first: 4, });
+
+	const onEndReach = () => {
+		fetchMore();
+	};
 
 	if (repo) {
 		const reviews = repo.reviews.edges.map(({ node }) => node);
@@ -96,6 +100,8 @@ const SingleRepository = () => {
 						{ItemSeparator()}
 					</View>
 				)}
+				onEndReached={onEndReach}
+				onEndReachedThreshold={0.5}
 			/>
 		);
 	}
